@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+    db:
+        image: mysql:8
+        container_name: ssafyland_db
+        platform: linux/x86_64
+        env_file: ./.dbenv
+        environment:
+          TZ: Asia/Seoul
+        restart: always
+        volumes:
+          # - ./docker/db/conf.d:/etc/mysql/conf.d
+          - ./data:/var/lib/mysql
+          - ./docker/db/initdb.d:/docker-entrypoint-initdb.d
+        ports:
+          - "3306:3306"
+        networks:
+          - ssafyland
+
+networks:
+    ssafyland:
+        driver: bridge
